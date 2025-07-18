@@ -1,0 +1,14 @@
+/Users/dylantettemer/Desktop/Desktop - MacBook Air (2)/projects/mindshift/cpp-backend/build/CMakeFiles/edit_cache.dir
+/Users/dylantettemer/Desktop/Desktop - MacBook Air (2)/projects/mindshift/cpp-backend/build/CMakeFiles/rebuild_cache.dir
+/Users/dylantettemer/Desktop/Desktop - MacBook Air (2)/projects/mindshift/cpp-backend/build/src/CMakeFiles/mindshift-backend-project.dir
+/Users/dylantettemer/Desktop/Desktop - MacBook Air (2)/projects/mindshift/cpp-backend/build/src/CMakeFiles/edit_cache.dir
+/Users/dylantettemer/Desktop/Desktop - MacBook Air (2)/projects/mindshift/cpp-backend/build/src/CMakeFiles/rebuild_cache.dir
+/Users/dylantettemer/Desktop/Desktop - MacBook Air (2)/projects/mindshift/cpp-backend/build/src/database/CMakeFiles/edit_cache.dir
+/Users/dylantettemer/Desktop/Desktop - MacBook Air (2)/projects/mindshift/cpp-backend/build/src/database/CMakeFiles/rebuild_cache.dir
+/Users/dylantettemer/Desktop/Desktop - MacBook Air (2)/projects/mindshift/cpp-backend/build/src/external_apis/CMakeFiles/edit_cache.dir
+/Users/dylantettemer/Desktop/Desktop - MacBook Air (2)/projects/mindshift/cpp-backend/build/src/external_apis/CMakeFiles/rebuild_cache.dir
+/Users/dylantettemer/Desktop/Desktop - MacBook Air (2)/projects/mindshift/cpp-backend/build/src/server/CMakeFiles/mindshift-server.dir
+/Users/dylantettemer/Desktop/Desktop - MacBook Air (2)/projects/mindshift/cpp-backend/build/src/server/CMakeFiles/edit_cache.dir
+/Users/dylantettemer/Desktop/Desktop - MacBook Air (2)/projects/mindshift/cpp-backend/build/src/server/CMakeFiles/rebuild_cache.dir
+/Users/dylantettemer/Desktop/Desktop - MacBook Air (2)/projects/mindshift/cpp-backend/build/src/utils/CMakeFiles/edit_cache.dir
+/Users/dylantettemer/Desktop/Desktop - MacBook Air (2)/projects/mindshift/cpp-backend/build/src/utils/CMakeFiles/rebuild_cache.dir
