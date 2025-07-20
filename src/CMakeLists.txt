@@ -5,8 +5,8 @@ add_executable(${PROJECT_NAME}
 )
 
 target_link_libraries(mindshift-backend-project PUBLIC
-  # mindshift-database
-  # mindshift-external
+  database
+  openai-api  
   # mindshift-utils
   mindshift-server
   Threads::Threads

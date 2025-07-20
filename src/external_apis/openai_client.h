@@ -1,1 +1,4 @@
-class OpenAIClient {};
+class OpenAIClient {
+public:
+  OpenAIClient();
+};

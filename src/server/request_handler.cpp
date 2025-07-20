@@ -5,10 +5,10 @@
 #include <sstream>
 #include <stdexcept>
 
-RequestHandler::~RequestHandler(std::shared_ptr<DBClient> db_client,
-                                std::shared_ptr<OpenAIClient> openai_client)
-    : openai_client_(std::move(openai_client)), std::move(
-                                                    db_client_(db_client)) {}
+RequestHandler::RequestHandler(std::shared_ptr<DBClient> db_client,
+                               std::shared_ptr<OpenAIClient> openai_client)
+    : openai_client_(std::move(openai_client)),
+      db_client_(std::move(db_client)) {}
 
 HttpResponse RequestHandler::handleHealth(const HttpRequest &req) {
   // TODO: this is just filler and will actually need to check the status of the
@@ -58,18 +58,18 @@ HttpResponse RequestHandler::handleGetUser(const HttpRequest &req) {
   query << "SELECT * FROM users WHERE id = " << userId;
 
   try {
-    auto result = db_client_->getUser(userId);
+    // auto result = db_client_->getUser(userId);
 
-    if (result.empty()) {
-      return createErrorResponse(http::status::not_found, "User not found");
-    }
+    // if (result.empty()) {
+    //   return createErrorResponse(http::status::not_found, "User not found");
+    // }
 
-    auto row = result[0];
-    json userData = {{"id", row["id"].as<std::string>()},
-                     {"email", row["email"].as<std::string>()},
-                     {"firstName", row["firstName"].as<std::string>()},
-                     {"lastName", row["lastName"].as<std::string>()}};
-
+    // auto row = result[0];
+    // json userData = {{"id", row["id"].as<std::string>()},
+    //                  {"email", row["email"].as<std::string>()},
+    //                  {"firstName", row["firstName"].as<std::string>()},
+    //                  {"lastName", row["lastName"].as<std::string>()}};
+    json userData;
     return createJsonResponse(http::status::ok, userData);
 
   } catch (std::exception &e) {
@@ -95,11 +95,11 @@ HttpResponse RequestHandler::handleCreateUser(const HttpRequest &req) {
         << "VALUES ('" << userId << "', '" << firstName << "', '" << lastName
         << "', '" << email << "', NOW()) ";
   try {
-    auto result = db_client_->createUser(userInfo);
-    if (result.empty()) {
-      return createErrorResponse(http::status::internal_server_error,
-                                 "Failed to create user");
-    }
+    // auto result = db_client_->createUser(userInfo);
+    // if (result.empty()) {
+    //   return createErrorResponse(http::status::internal_server_error,
+    //                              "Failed to create user");
+    // }
 
     return createJsonResponse(http::status::ok,
                               {"message", "User created successfully"});

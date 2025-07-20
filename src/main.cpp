@@ -1,3 +1,5 @@
+#include "database/database_client.h"
+#include "external_apis/openai_client.h"
 #include "server/http_server.h"
 #include "server/request_handler.h"
 #include "server/router.h"
@@ -7,10 +9,10 @@
 #include <memory>
 #include <thread>
 
-#define PORT 8000
-#define NUMBER_OF_THREADS 4
-
 int main(int argc, char *argv[]) {
+  uint16_t PORT = 8000;
+  uint8_t NUMBER_OF_THREADS = 4;
+
   try {
     std::shared_ptr<OpenAIClient> openai_client =
         std::make_shared<OpenAIClient>();

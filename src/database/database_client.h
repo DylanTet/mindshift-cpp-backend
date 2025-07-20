@@ -1,1 +1,4 @@
-class DBClient {};
+class DBClient {
+public:
+  DBClient();
+};

@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libmindshift-server.a "CMakeFiles/mindshift-server.dir/http_server.cpp.o" "CMakeFiles/mindshift-server.dir/request_handler.cpp.o" "CMakeFiles/mindshift-server.dir/http_session.cpp.o" "CMakeFiles/mindshift-server.dir/router.cpp.o"
-/Library/Developer/CommandLineTools/usr/bin/ranlib libmindshift-server.a

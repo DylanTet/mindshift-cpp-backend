@@ -19,9 +19,9 @@ target_include_directories(mindshift-server PUBLIC
 )
 
 target_link_libraries(mindshift-server PUBLIC
-  mindshift-database
-  mindshift-external
-  mindshift-utils
+  database
+  openai-api 
+  # mindshift-utils
   ${Boost_LIBRARIES}
   Threads::Threads
 )
