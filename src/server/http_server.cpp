@@ -6,7 +6,7 @@
 
 Server::Server(const std::string &address, unsigned short port, int threads)
     : ioc_{threads}, acceptor_(net::make_strand(ioc_)), port_(port),
-      thread_count_(threads) {}
+      thread_count_(threads), address_(address) {}
 
 Server::~Server() { stop(); }
 
