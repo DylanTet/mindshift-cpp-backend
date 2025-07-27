@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <string_view>
 
 RequestHandler::RequestHandler(std::shared_ptr<DBClient> db_client,
                                std::shared_ptr<OpenAIClient> openai_client)
@@ -38,7 +39,7 @@ HttpResponse RequestHandler::handleChatCompletion(const HttpRequest &req) {
     // Make call to OpenAI API
     // std::string openai_response = openai_client_->chatCompletion(message,
     // model);
-    // return createJsonResponse(http::status::ok, openai_response);
+    return createJsonResponse(http::status::ok, "FAKE RESPONSE");
 
   } catch (std::exception &e) {
     // Do I want to send the actual chat error back to the user?
@@ -47,17 +48,17 @@ HttpResponse RequestHandler::handleChatCompletion(const HttpRequest &req) {
   }
 }
 
-HttpResponse RequestHandler::handleGetUser(const HttpRequest &req) {
-  json body = parseRequestBody(req);
-  std::string userId = body["userId"];
-  if (userId.empty()) {
-    return createErrorResponse(http::status::bad_request, "Missing user ID");
-  }
-
-  std::stringstream query;
-  query << "SELECT * FROM users WHERE id = " << userId;
-
+HttpResponse RequestHandler::handleGetUser(const HttpRequest &req,
+                                           std::string_view user_id) {
   try {
+    json body = parseRequestBody(req);
+    std::string user_id = getUserIdFromToken(req);
+    if (user_id.empty()) {
+      return createErrorResponse(http::status::bad_request, "Missing user ID");
+    }
+
+    std::stringstream query;
+    query << "SELECT * FROM users WHERE id = " << user_id;
     // auto result = db_client_->getUser(userId);
 
     // if (result.empty()) {
@@ -78,21 +79,21 @@ HttpResponse RequestHandler::handleGetUser(const HttpRequest &req) {
   }
 }
 
-HttpResponse RequestHandler::handleCreateUser(const HttpRequest &req) {
+HttpResponse RequestHandler::handleCreateUser(const HttpRequest &req,
+                                              std::string_view user_id) {
   json body = parseRequestBody(req);
-  std::string userId = body["userId"];
-  if (userId.empty()) {
+  if (user_id.empty()) {
     return createErrorResponse(http::status::bad_request, "Missing user ID");
   }
 
   std::string email = body["email"];
   std::string firstName = body["firstName"];
   std::string lastName = body["lastName"];
-  User userInfo{userId, email, firstName, lastName};
+  User userInfo{user_id.data(), email, firstName, lastName};
 
   std::stringstream query;
   query << "INSERT INTO users (id, firstName, lastName, email, created_at) "
-        << "VALUES ('" << userId << "', '" << firstName << "', '" << lastName
+        << "VALUES ('" << user_id << "', '" << firstName << "', '" << lastName
         << "', '" << email << "', NOW()) ";
   try {
     // auto result = db_client_->createUser(userInfo);
@@ -107,6 +108,33 @@ HttpResponse RequestHandler::handleCreateUser(const HttpRequest &req) {
     std::cout << "Error adding user to database: " << e.what() << '\n';
     return createErrorResponse(http::status::internal_server_error,
                                "Error creating user");
+  }
+}
+
+HttpResponse RequestHandler::handleAddUserJournal(const HttpRequest &req,
+                                                  std::string_view user_id) {
+  json body = parseRequestBody(req);
+
+  JournalData journalData{body["yesterdayReflection"], body["intentionsEntry"],
+                          body["needEntry"],           body["gratitudeEntry"],
+                          body["moodLevel"],           body["energyLevel"]};
+
+  // std::stringstream query;
+  // query << "INSERT INTO journal_data (id, firstName, lastName, email,
+  // created_at) "
+  //       << "VALUES ('" << userId << "', '" << firstName << "', '" << lastName
+  //       << "', '" << email << "', NOW()) ";
+  try {
+    // auto result = db_client_->addJournalEntry(query);
+    // if (result.empty()) {
+    //   return createErrorResponse(http::status::internal_server_error,
+    //                              "Failed to create user");
+    // }
+    return createJsonResponse(http::status::ok,
+                              {"message", "Journal added successfully"});
+  } catch (std::exception &e) {
+    return createErrorResponse(http::status::internal_server_error,
+                               "Error adding journal entry");
   }
 }
 

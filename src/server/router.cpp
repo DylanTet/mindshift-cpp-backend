@@ -1,4 +1,5 @@
 #include "router.h"
+#include "auth.h"
 #include <boost/beast/http.hpp>
 #include <exception>
 #include <iostream>
@@ -50,7 +51,8 @@ void Router::delete_(const std::string &pattern, RouteHandler handler) {
 
 HttpResponse Router::handleRequest(const HttpRequest &req) {
   try {
-    std::string_view target = std::string_view(req.target());
+    const std::string user_id = getUserIdFromToken(req);
+    std::string target = req.target();
     size_t query_pos = target.find('?');
     if (query_pos != std::string::npos) {
       target = target.substr(0, query_pos);
@@ -59,13 +61,14 @@ HttpResponse Router::handleRequest(const HttpRequest &req) {
     for (const auto &route : routes_) {
       if (route.method == req.method()) {
         if (target == route.pattern) {
-          return route.handler(req);
+          return route.handler(req, user_id);
         }
       }
     }
     return not_found_handler_(req);
 
   } catch (const std::exception &e) {
+    std::cout << "Error trying to handle request: " << e.what() << std::endl;
     return error_handler_(req);
   }
 }

@@ -11,6 +11,8 @@ add_library(${PROJECT_NAME} STATIC
   request_handler.cpp
   router.h
   router.cpp
+  auth.h
+  auth.cpp
 )
 
 target_include_directories(mindshift-server PUBLIC
@@ -21,6 +23,7 @@ target_include_directories(mindshift-server PUBLIC
 target_link_libraries(mindshift-server PUBLIC
   database
   openai-api 
+  curl
   # mindshift-utils
   ${Boost_LIBRARIES}
   Threads::Threads
